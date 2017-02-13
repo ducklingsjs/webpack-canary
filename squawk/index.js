@@ -8,6 +8,7 @@ import getLogger from '../lib/logger';
 import versionMapping from './webpack-to-dependency-versions';
 import canary from '../lib';
 
+let startTime;
 const squawk = Promise.promisify(canary);
 const options = argv.verbose ? { loglevel: 'debug' } : { loglevel: 'silent' };
 const logger = getLogger();
@@ -111,12 +112,16 @@ const generateSummary = function(results) {
 
     logger.info(`${table}`);
     logger.newline();
+    const duration = new Date().getTime() - startTime;
+    logger.info(`Run completed in ${duration}ms`)
+    logger.newline();
   });
 
   completeTask(results);
 };
 
 export default function() {
+  startTime = new Date().getTime();
   const gauge = new Gauge();
   const updateGauge = (webpack, value) => !argv.verbose && gauge.show(`${webpack}`, value / runList.length);
   if (!argv.verbose) gauge.show('webpack', 0);
