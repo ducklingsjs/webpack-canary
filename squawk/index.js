@@ -3,12 +3,13 @@ import Gauge from 'gauge';
 import _ from 'underscore';
 import chalk from 'chalk';
 import Table from 'cli-table2';
+import { argv } from 'yargs';
 import getLogger from '../lib/logger';
 import versionMapping from './webpack-to-dependency-versions';
 import canary from '../lib';
 
 const squawk = Promise.promisify(canary);
-const options = { loglevel: 'silent' };
+const options = argv.verbose ? { loglevel: 'debug' } : { loglevel: 'silent' };
 const logger = getLogger();
 const createRunList = function() {
   const nestedRunList = _.map(versionMapping, function(dependencyVersions, webpackVersion) {
@@ -117,8 +118,8 @@ const generateSummary = function(results) {
 
 export default function() {
   const gauge = new Gauge();
-  const updateGauge = (webpack, value) => gauge.show(`${webpack}`, value / runList.length);
-  gauge.show('webpack', 0);
+  const updateGauge = (webpack, value) => !argv.verbose && gauge.show(`${webpack}`, value / runList.length);
+  if (!argv.verbose) gauge.show('webpack', 0);
 
   const runList = createRunList();
   let results = {};
