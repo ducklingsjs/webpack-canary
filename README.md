@@ -33,22 +33,7 @@ node index.js --webpack=webpack/webpack#master --dependency=https://github.com/a
 
 ## Compatibility
 
-A dependency must include an `examples` directory which contains an example setup with corresponding webpack config. This config is run with the installed webpack version to confirm compatibility.
+A dependency must include an `example` or `examples` directory which contains an example setup with corresponding webpack config (ie. must have a `webpack.config.js` file). This config is run with the installed webpack version to confirm compatibility. If a custom command needs to be run, there should be an accompanying `README.md` file which contains the command in a codeblock.
 
 ## To do
-
- - [x] ES6
- - [x] Tests
- - [x] Flag to control log level verbosity
- - [x] Programatic interface (split CLI flags from app)
- - [x] Script to run for multiple dependencies
- - [x] Linting
- - [x] Show summary successes / failure after running squawk
- - [x] Change logLevel to loglevel
- - [x] Investigate why failing on webpack 1 causes failure in webpack 2 (cache?)
- - [x] Update summary to use progress bar and collapse table if all success
- - [x] Update readme
- - [x] Output recreation command when squawk failure
- - [x] Support multiple examples and output in table
  - [ ] Split webpack 1 configs and 2 configs in examples - support non-suported examples
- - [ ] Add ability to run more than just loaders / plugins
