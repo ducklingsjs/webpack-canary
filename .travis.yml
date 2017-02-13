@@ -11,8 +11,8 @@ cache:
     - node_modules
 
 script:
-  - if [ "$SQUAWK" = "true" ]; then npm run squawk; fi
-  - if [ "$SQUAWK" = "false" ]; then npm run lint && npm test; fi
+  - if [ "$SQUAWK" = "true" ]; then yarn run squawk; fi
+  - if [ "$SQUAWK" = "false" ]; then yarn run lint && yarn test; fi
 
 matrix:
   include:
